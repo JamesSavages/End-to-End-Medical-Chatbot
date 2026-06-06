@@ -1,29 +1,28 @@
-# Use the official Python 3.11 slim image
+# Use the official Python 3.12 slim image
 FROM python:3.12-slim
 
-# Install system dependencies 
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# FIX: Leverage the official astral-sh/uv image to safely copy uv binaries 
-# into this container without dealing with pip PEP 668 restrictions.
+# Leverage the official astral-sh/uv image to safely copy uv binaries
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set the working directory inside the container
-WORKDIR /workspace
+WORKDIR /app
 
 # Copy ONLY the dependency files first to cache installations
 COPY pyproject.toml uv.lock ./
 
-# Use uv to sync and install all dependencies into the container
+# Install project dependencies
 RUN uv sync
 
 # Copy the rest of your application code
 COPY . .
 
-# Expose port 8080
-EXPOSE 8080
+# Expose the network port your app runs on (e.g., 8000)
+EXPOSE 8000
 
-# Run the application
-CMD ["uv", "run", "app/main.py"]
+# Execute the application
+CMD ["uv", "run", "python", "app.py"]
