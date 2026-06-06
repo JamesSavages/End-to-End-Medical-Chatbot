@@ -11,6 +11,8 @@ import os
 
 app = Flask(__name__)
 
+os.environ["FLASK_RUN_PORT"] = "8080"
+os.environ["FLASK_RUN_HOST"] = "0.0.0.0"
 
 load_dotenv()
 
@@ -57,5 +59,4 @@ def chat():
     print("Response : ", response["answer"])
     return str(response["answer"])
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port= 8080, debug= True)
+app.run(host="0.0.0.0", port=8080, debug=False) 
