@@ -57,14 +57,14 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
           IMAGE_TAG: latest
         run: |
-          # 1. Pull the fresh image onto the EC2 host machine
-          sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          # 1. Share the runner's Docker configuration directory with the sudo command path
+          sudo DOCKER_CONFIG=$HOME/.docker docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-          # 2. Safely stop and clear out the old container if it exists
+          # 2. Safely stop and clear out the old container instance if it exists on the host
           sudo docker stop knowledge-bot || true
           sudo docker rm knowledge-bot || true
 
-          # 3. Spin up your updated container live on port 8080
+          # 3. Spin up your updated medical chatbot live container on host port 8080
           sudo docker run -d \
             --name knowledge-bot \
             -p 8080:8080 \
