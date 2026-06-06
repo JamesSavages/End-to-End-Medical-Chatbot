@@ -1,0 +1,17 @@
+# Security: NEVER include your .env file in the Docker image
+**/.env
+.env
+
+# Ignore uv's local virtual environment
+.venv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore Git files
+.git/
+
+# (Optional) Ignore the local vector database if you want the container to start fresh,
+# or leave this out if you want your current embeddings copied into the container.
+# vector_db/
