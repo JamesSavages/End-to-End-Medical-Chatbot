@@ -12,7 +12,7 @@ https://github.com/JamesSavages/End-to-End-Medical-Chatbot.git
 ### STEP 01- Create a conda environment after opening the repository
 
 ```bash
-conda create -n medibot python=3.10 -y
+conda create -n medibot python=3.12 -y
 ```
 
 
@@ -20,18 +20,24 @@ conda create -n medibot python=3.10 -y
 conda activate medibot
 ```
 
+``` alternatively, use
+uv init
+```
+
 ### STEP 02- install the requirements
 ```bash
 pip install -r requirements.txt
 ```
 
+```
+uv run -r requirements.txt
+```
 ### Create a `.env` file in the root directory and add your Pinecone & openai credentials as follows:
 
 ```ini
 PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
-
 
 ```bash
 # run the following command to store embeddings to pinecone
@@ -48,8 +54,6 @@ Now,
 open up localhost:
 ```
 
-
-
 ### Techstack Used:
 
 - Python
@@ -57,8 +61,6 @@ open up localhost:
 - Flask
 - GPT
 - Pinecone
-
-
 
 # AWS-CICD-Deployment-with-Github-Actions
 
@@ -93,8 +95,7 @@ open up localhost:
 
 	
 ## 3. Create ECR repo to store/save docker image
-    - Save the URI: 315865595366.dkr.ecr.us-east-1.amazonaws.com/medicalbot
-
+    - Save the URI: download as csv file
 	
 ## 4. Create EC2 machine (Ubuntu) 
 
